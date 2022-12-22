@@ -1,0 +1,94 @@
+body {
+    background-color: #202d36;
+}
+
+.header {
+    border-bottom: 2px solid #1e2b34;
+    background-color: #2b3743;
+}
+
+.header__logo {
+    color: #fff;
+}
+
+.cls-1 {
+    fill: #fff;
+    stroke: #fff;
+}
+
+
+.header__dark-mode-title {
+    color: #fff;
+}
+
+.search__country {
+    background-color: #2b3743;
+    color: #fff;
+}
+
+#search__country:focus {
+    color: #fff;
+}
+
+.search__search-icon {
+    fill: #fff;
+}
+
+.dropdown__button {
+    background-color: #2b3743;
+    color: #fff;
+}
+
+.dropdown__list {   
+    background-color: #2b3743;
+    color: #fff;
+}
+
+.dropdown__list-item:hover {
+    background-color: #1d364e;
+}
+
+.country {
+    background-color: #2b3743;
+}
+
+
+.country__name {
+    color: #fff;
+}
+
+.country__value {
+    color: #fff;
+}
+
+.country__value--title {
+    color: #fff;
+}
+
+.country-details__back-button {
+    background-color: #2b3743;
+    box-shadow: 0 0 10px #1e2b34;
+    color: #fff;
+}
+
+.country-information__name {
+    color: #fff;
+}
+
+.country-information__value {
+    color: #fff;
+}
+
+.country-information__value--title {
+    color: #fff;
+}
+
+.country-information__border-countries--title {
+    color: #fff;
+}
+
+.country-innformation__border-country {
+    background-color: #2b3743;
+    box-shadow: 0 0 7px #1e2b34;
+    color: #fff;
+}

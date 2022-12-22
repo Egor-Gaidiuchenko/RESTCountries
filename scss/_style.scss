@@ -1,0 +1,281 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Barlow';
+}
+
+body {
+    background-color: #fafafa;
+}
+
+.header {
+    height: 80px;
+    padding: 0 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #efefef;
+    background-color: #fff;
+}
+
+.header__logo {
+    display: inline;
+    @include fontBarlow ($fontColor: #000, $fontWeight: 700)
+}
+
+.header__dark-mode-button {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.header__dark-mode-icon {
+    height: 20px;
+}
+
+.cls-1 {
+    fill: #000;
+}
+
+.header__dark-mode-title {
+    height: 30px;
+    @include fontBarlow ($fontColor: #000);
+    margin-left: 10px;
+}
+
+.search {
+    height: 150px;
+    padding: 0 80px;
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template: 1fr / repeat(2, auto);
+}
+
+.search__country {
+    width: 400px;
+    height: 60px;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    grid-area: 1 / 1 / 2 / 2;
+    @include fontBarlow ($fontColor: #8e8e8e);
+    padding: 10px;
+}
+
+#search__country:focus {
+    @include fontBarlow ($fontColor: #8e8e8e);
+    padding-left: 10px;
+}
+
+#search__country:focus ~ .search__search-country-label {
+    display: none;
+}
+
+#search__country:not(:placeholder-shown) ~ .search__search-country-label {
+    display: none;
+}
+
+.search__search-country-label {
+    display: flex;
+    align-items: center;
+}
+
+.search__search-icon {
+    height: 30px;
+    fill: #8e8e8e;
+}
+
+.search__search-title {
+    margin-left: 20px;
+}
+
+.dropdown {
+    grid-area: 1 / 2 / 2 / 3;
+    position: relative;
+}
+
+.dropdown__button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    padding: 0 15px;
+    background-color: #fff;
+    @include fontBarlow($fontColor: #8e8e8e, $fontSize: 16px);
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown__button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    background-image: url(/img/arrow_down.svg);
+}
+
+.dropdown__list {
+    width: 200px;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    list-style-type: none;
+    background-color: #fff;
+    border-radius: 5px;
+    @include fontBarlow($fontColor: #8e8e8e, $fontSize: 16px);
+}
+
+.dropdown__list--hidden {
+    display: none;
+}
+
+.dropdown__list-item {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.dropdown__list-item:hover {
+    background-color: #efefef;
+    padding: 0 15px;
+    border-radius: 5px;
+}
+
+.dropdown__input--hidden {
+    display: none;
+}
+
+.countries {
+    padding: 40px 80px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.country {
+    min-width: 270px;
+    width: 20%;
+    height: 340px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.country__flag {
+    height: 50%;
+    width: 100%;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.country__info {
+    padding: 20px 25px;
+}
+
+.country__name {
+    @include fontBarlow ($fontColor: #000, $fontSize: 18px, $fontWeight: 900);
+    margin-bottom: 20px;
+}
+
+.country__value {
+    @include fontBarlow ($fontColor: #000, $fontSize: 12px);
+    margin-bottom: 10px;
+}
+
+.country__value--title {
+    @include fontBarlow ($fontColor: #000, $fontSize: 12px, $fontWeight: 700)
+}
+
+.country-details {
+    padding: 100px 80px;
+}
+
+.country-details--hidden {
+    display: none;
+}
+
+.country-details__back-button {
+    width: 150px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #dfdfdf;
+    border: none;
+    @include fontBarlow ($fontColor: #000, $fontSize: 16px);
+    margin-bottom: 80px;
+}
+
+.country-information {
+    min-height: 400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.country-information__flag {
+    grid-area: 1 / 1 / 2 / 2;
+    height: 100%;
+    width: 100%;
+}
+
+.country-information__details {
+    grid-area: 1 / 2 / 2 / 3;
+    padding: 50px 0 50px 80px;
+}
+
+.country-information__info {
+    display: flex;
+    flex-flow: column wrap;
+    max-height: 160px;
+    margin-bottom: 75px;
+}
+
+.country-information__name {
+    @include fontBarlow ($fontColor: #000, $fontSize: 24px, $fontWeight: 900);
+    margin-bottom: 45px;
+}
+
+.country-information__value {
+    @include fontBarlow ($fontColor: #000, $fontSize: 16px);
+    margin-bottom: 20px;
+}
+
+.country-information__value--title {
+    @include fontBarlow ($fontColor: #000, $fontSize: 16px, $fontWeight: 700)
+}
+
+.country-innformation__border-countries {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 10px;
+}
+
+.country-information__border-countries--title {
+    @include fontBarlow ($fontColor: #000, $fontSize: 16px, $fontWeight: 700);
+    margin-right: 10px;
+}
+
+.country-innformation__border-country {
+    width: 100px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 7px #dfdfdf;
+    border: none;
+    @include fontBarlow ($fontColor: #000, $fontSize: 12px);
+    margin: 0 10px 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

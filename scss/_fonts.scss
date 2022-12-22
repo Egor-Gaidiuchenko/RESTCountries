@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700;900&display=swap');
+
+@mixin fontBarlow ($fontColor: #fff, $fontWeight: 400, $fontSize: 24px) {
+    font-family: 'Barlow';
+    color: $fontColor;
+    font-weight: $fontWeight;
+    font-size: $fontSize;
+    line-height: 1.2;
+    margin: 0;
+}
