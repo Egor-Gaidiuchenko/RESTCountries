@@ -56,6 +56,10 @@ body {
     grid-template: 1fr / repeat(2, auto);
 }
 
+.search--hidden {
+    display: none;
+}
+
 .search__country {
     width: 400px;
     height: 60px;
@@ -165,10 +169,15 @@ body {
     gap: 30px;
 }
 
+.countries--hidden {
+    display: none;
+}
+
 .country {
     min-width: 270px;
     width: 20%;
-    height: 340px;
+    height: auto;
+    min-height: 340px;
     background-color: #fff;
     border-radius: 5px;
 }

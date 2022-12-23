@@ -70,7 +70,7 @@ darkThemebutton.addEventListener('click', () => {
 
 // Country class
 class Country {
-    constructor (name, flag, population, region, capital, nativeName, subRegion, domain, currencies, languages, borders) {
+    constructor (name, flag, population, region, capital, code, nativeName, subRegion, domain, currencies, languages, borders) {
         this.name = name;
         this.flag = flag;
         this.population = population;
@@ -82,6 +82,7 @@ class Country {
         this.currencies = currencies;
         this.languages = languages;
         this.borders = borders;
+        this.code = code;
     }
 
     renderCountryShort () {
@@ -99,6 +100,8 @@ class Country {
                 <h2 class="country__value"><span class="country__value--title">Capital: </span>${this.capital}</h2>
             </div>
         `;
+
+        element.setAttribute('code', `${this.code}`);
 
         parent.append(element);
     }
@@ -164,18 +167,68 @@ function renderCountriesShort(region) {
                     flag = item.flags.svg,
                     population = item.population,
                     region = item.region,
-                    capital = item.capital;
-                    // nativeName = item.name.nativeName[Object.keys(item.name.nativeName)[0]].official,
-                    // subRegion = item.subregion,
-                    // domain = item.tld.join(' , '),
-                    // currencies = Object.values(item.currencies)[0].name,
-                    // languages = Object.values(item.languages).join(' , ');
-                
-                    // if (Object.values(item.currencies).length > 1) {
-                    //     currencies = [Object.values(item.currencies)[0].name, Object.values(item.currencies)[1].name].join(' , ');
-                    // }
+                    capital = item.capital,
+                    code = item.cca3;
 
-                new Country(name, flag, population, region, capital).renderCountryShort();
+                new Country(name, flag, population, region, capital, code).renderCountryShort();
             });
         });
 } 
+
+// Show Details
+
+const countries = document.querySelector('.countries'),
+      searchForm = document.querySelector('.search'),
+      countryDetails = document.querySelector('.country-details'),
+      backButton = document.querySelector('.country-details__back-button');
+      
+
+countries.addEventListener('click', (event) => {
+    const target = event.target.parentElement;
+
+    if (target.classList.contains('country')) {
+        searchForm.classList.add('search--hidden');
+        countryDetails.classList.remove('country-details--hidden');
+        countries.classList.add('countries--hidden');
+        renderCountryDetailsPage(target.getAttribute('code'));
+    }
+});
+
+backButton.addEventListener('click', () => {
+    const countryDetailsPage = document.querySelector('.country-information');
+
+    countryDetailsPage.remove();
+    searchForm.classList.remove('search--hidden');
+    countryDetails.classList.add('country-details--hidden');
+    countries.classList.remove('countries--hidden');
+});
+
+function renderCountryDetailsPage (code) {
+    let url = `https://restcountries.com/v3.1/alpha/${code}`;
+
+    getData(url)
+        .then((data) => {
+            data.forEach(item => {
+                let name = item.name.official,
+                    flag = item.flags.svg,
+                    population = item.population,
+                    region = item.region,
+                    capital = item.capital,
+                    nativeName = item.name.nativeName[Object.keys(item.name.nativeName)[0]].official,
+                    subRegion = item.subregion,
+                    domain = item.tld.join(' , '),
+                    currencies = Object.values(item.currencies)[0].name,
+                    languages = Object.values(item.languages).join(' , '),
+                    borders = item.borders;
+                    console.log(borders);
+                
+                    if (Object.values(item.currencies).length > 1) {
+                        currencies = [Object.values(item.currencies)[0].name, Object.values(item.currencies)[1].name].join(' , ');
+                    }
+
+                new Country(name, flag, population, region, capital, code, nativeName, subRegion, domain, currencies, languages, borders).renderCountryDetails();
+            });
+        });
+}
+
+console.log(getData('https://restcountries.com/v3.1/alpha/per'));
