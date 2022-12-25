@@ -182,6 +182,10 @@ body {
     border-radius: 5px;
 }
 
+.country--hidden {
+    display: none;
+}
+
 .country__flag {
     height: 50%;
     width: 100%;
@@ -264,7 +268,7 @@ body {
     @include fontBarlow ($fontColor: #000, $fontSize: 16px, $fontWeight: 700)
 }
 
-.country-innformation__border-countries {
+.country-information__border-countries {
     display: flex;
     flex-wrap: wrap;
     margin-right: 10px;
@@ -275,7 +279,7 @@ body {
     margin-right: 10px;
 }
 
-.country-innformation__border-country {
+.country-information__border-country {
     width: 100px;
     height: 30px;
     background-color: #fff;

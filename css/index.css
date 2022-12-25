@@ -266,6 +266,10 @@ body {
   border-radius: 5px;
 }
 
+.country--hidden {
+  display: none;
+}
+
 .country__flag {
   height: 50%;
   width: 100%;
@@ -399,7 +403,7 @@ body {
   margin: 0;
 }
 
-.country-innformation__border-countries {
+.country-information__border-countries {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -418,7 +422,7 @@ body {
   margin-right: 10px;
 }
 
-.country-innformation__border-country {
+.country-information__border-country {
   width: 100px;
   height: 30px;
   background-color: #fff;

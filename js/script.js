@@ -70,7 +70,7 @@ darkThemebutton.addEventListener('click', () => {
 
 // Country class
 class Country {
-    constructor (name, flag, population, region, capital, code, nativeName, subRegion, domain, currencies, languages, borders) {
+    constructor (name, flag, population, region, capital, code, nativeName, subRegion, domain, currencies, languages, borders, commonName) {
         this.name = name;
         this.flag = flag;
         this.population = population;
@@ -83,6 +83,7 @@ class Country {
         this.languages = languages;
         this.borders = borders;
         this.code = code;
+        this.commonName = commonName;
     }
 
     renderCountryShort () {
@@ -102,6 +103,7 @@ class Country {
         `;
 
         element.setAttribute('code', `${this.code}`);
+        element.setAttribute('name', `${this.name}`);
 
         parent.append(element);
     }
@@ -126,21 +128,56 @@ class Country {
                     <h2 class="country-information__value"><span class="country-information__value--title">Currencies: </span>${this.currencies}</h2>
                     <h2 class="country-information__value"><span class="country-information__value--title">Languages: </span>${this.languages}</h2>
                 </div>
-                <div class="country-innformation__border-countries">
-                    <span class="country-information__border-countries--title">Border Countries:</span>
-                    <div class="country-innformation__border-country">Belarus</div>
-                    <div class="country-innformation__border-country">Hungarian</div>
-                    <div class="country-innformation__border-country">Moldova</div>
-                    <div class="country-innformation__border-country">Poland</div>
-                    <div class="country-innformation__border-country">Romania</div>
-                    <div class="country-innformation__border-country">Slovakia</div>
-                    <div class="country-innformation__border-country">Russia</div>
-                </div>
             </div>
         `;
 
         parent.append(element);
+        
+        if (this.borders) {
+            const borders = document.createElement('div'),
+                  bordersParent = document.querySelector('.country-information__details');
+            
+            borders.classList.add('country-information__border-countries');
+
+            borders.innerHTML = `
+                <span class="country-information__border-countries--title">Border Countries:</span> 
+            `;
+
+            bordersParent.append(borders);
+            
+            let borderCountries = [];
+            
+            this.borders.forEach(code => {
+                getData(`https://restcountries.com/v3.1/alpha/${code}`)
+                    .then(data => {
+                        let countryName = data[0].name.common;
+                            
+                        const borderCountry = document.createElement('div');
+
+                        borderCountry.classList.add('country-information__border-country');
+
+                        borderCountry.textContent = countryName;
+
+                        borderCountry.setAttribute('code', `${code}`);
+
+                        borderCountries.push(borderCountry);
+
+                        borders.append(borderCountry);
+                    });
+            });
+
+            borders.addEventListener('click', (event) => {
+                const target = event.target,
+                      countryDetailsPage = document.querySelector('.country-information');
+
+                if (target.classList.contains('country-information__border-country')) {
+                    countryDetailsPage.remove();
+                    renderCountryDetailsPage(target.getAttribute('code'));
+                }
+            });
+        }   
     }
+
 }
 
 // Render countries by region
@@ -219,16 +256,33 @@ function renderCountryDetailsPage (code) {
                     domain = item.tld.join(' , '),
                     currencies = Object.values(item.currencies)[0].name,
                     languages = Object.values(item.languages).join(' , '),
-                    borders = item.borders;
-                    console.log(borders);
-                
+                    borders = item.borders,
+                    commonName = item.name.common;
+
                     if (Object.values(item.currencies).length > 1) {
                         currencies = [Object.values(item.currencies)[0].name, Object.values(item.currencies)[1].name].join(' , ');
                     }
 
-                new Country(name, flag, population, region, capital, code, nativeName, subRegion, domain, currencies, languages, borders).renderCountryDetails();
+                new Country(name, flag, population, region, capital, code, nativeName, subRegion, domain, currencies, languages, borders, commonName).renderCountryDetails();
             });
         });
 }
 
-console.log(getData('https://restcountries.com/v3.1/alpha/per'));
+// Search by name
+
+const searchField = document.querySelector('#search__country');
+
+searchField.addEventListener('focus', () => {
+    const countriesCards = document.querySelectorAll('.country');
+    
+    searchField.addEventListener('input', () => {
+        console.log(searchField.value)
+        countriesCards.forEach(item => {
+            if (!item.getAttribute('name').toLowerCase().includes(searchField.value)) {
+                item.classList.add('country--hidden');
+            } else {
+                item.classList.remove('country--hidden');
+            }
+        });
+    });
+});
