@@ -3,8 +3,8 @@ function darkTheme () {
       darkThemebutton = document.querySelector('.header__dark-mode-button');
         
     darkThemebutton.addEventListener('click', () => {
-        if (darkTheme.getAttribute('href') !== '/css/dark.css') {
-            darkTheme.setAttribute('href', '/css/dark.css');
+        if (darkTheme.getAttribute('href') !== './css/dark.css') {
+            darkTheme.setAttribute('href', './css/dark.css');
         } else {
             darkTheme.setAttribute('href', '');
         }
